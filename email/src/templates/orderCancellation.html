@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Cancelled - QuickCart</title>
+  <style>
+    body { 
+      font-family: 'Arial', sans-serif; 
+      line-height: 1.6; 
+      color: #333; 
+      margin: 0; 
+      padding: 0; 
+      background-color: #f4f4f4;
+    }
+    .container { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      background: white;
+    }
+    .header { 
+      background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+      color: white; 
+      padding: 30px 20px; 
+      text-align: center; 
+    }
+    .header h1 { 
+      margin: 0; 
+      font-size: 28px; 
+    }
+    .content { 
+      padding: 30px; 
+    }
+    .order-info { 
+      background: #f8f9fa; 
+      padding: 20px; 
+      border-radius: 8px; 
+      margin-bottom: 20px;
+      border-left: 4px solid #dc3545;
+    }
+    .product-item { 
+      border: 1px solid #e9ecef; 
+      padding: 15px; 
+      margin: 10px 0; 
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+    }
+    .product-image { 
+      width: 60px; 
+      height: 60px; 
+      object-fit: cover; 
+      border-radius: 6px;
+      margin-right: 15px;
+      background: #f8f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6c757d;
+      font-size: 12px;
+    }
+    .product-details { 
+      flex: 1; 
+    }
+    .address-section { 
+      background: #f8f9fa; 
+      padding: 20px; 
+      border-radius: 8px; 
+      margin: 20px 0;
+      border-left: 4px solid #6c757d;
+    }
+    .footer { 
+      text-align: center; 
+      padding: 20px; 
+      color: #6c757d; 
+      background: #f8f9fa;
+      border-top: 1px solid #dee2e6;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 5px 12px;
+      background: #dc3545;
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .refund-info {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>❌ Order Cancelled</h1>
+      <p>Your order has been cancelled</p>
+    </div>
+    
+    <div class="content">
+      <div class="order-info">
+        <h2 style="margin-top: 0; color: #495057;">Cancellation Details</h2>
+        <p><strong>Order ID:</strong> {{orderId}}</p>
+        <p><strong>Order Date:</strong> {{orderDate}}</p>
+        <p><strong>Cancelled On:</strong> {{cancelledDate}}</p>
+        <p><strong>Total Amount:</strong> <span style="font-size: 18px; font-weight: bold; color: #dc3545;">${{totalAmount}}</span></p>
+        <p><strong>Status:</strong> <span class="status-badge">{{status}}</span></p>
+      </div>
+      
+      <div class="refund-info">
+        <h3 style="margin-top: 0; color: #856404;">💰 Refund Information</h3>
+        <p style="margin: 5px 0;">Your refund of <strong>${{totalAmount}}</strong> has been processed.</p>
+        <p style="margin: 5px 0;">It will be credited back to your original payment method within <strong>5-7 business days</strong>.</p>
+        <p style="margin: 5px 0;">You will receive a separate email confirmation once the refund is complete.</p>
+      </div>
+      
+      <h3 style="color: #495057;">Cancelled Items</h3>
+      
+      {{#each products}}
+      <div class="product-item">
+        <div class="product-image">
+          {{#if this.image}}
+          <img src="{{this.image}}" alt="{{this.title}}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+          {{else}}
+          <div style="width: 60px; height: 60px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 6px; color: #6c757d; font-size: 12px;">📦</div>
+          {{/if}}
+        </div>
+        <div class="product-details">
+          <h4 style="margin: 0 0 5px 0; color: #495057;">{{this.title}}</h4>
+          {{#if this.color}}<p style="margin: 0; color: #6c757d; font-size: 14px;">Color: {{this.color}}</p>{{/if}}
+          {{#if this.size}}<p style="margin: 0; color: #6c757d; font-size: 14px;">Size: {{this.size}}</p>{{/if}}
+          <p style="margin: 5px 0; color: #6c757d;">Quantity: {{this.quantity}}</p>
+          <p style="margin: 0; color: #dc3545; font-weight: bold;">${{this.price}} each</p>
+        </div>
+        <div style="text-align: right;">
+          <p style="margin: 0; font-weight: bold;">${{this.total}}</p>
+        </div>
+      </div>
+      {{/each}}
+      
+      <div style="border-top: 2px solid #e9ecef; padding-top: 15px; text-align: right;">
+        <p style="margin: 5px 0;"><strong>Subtotal: ${{subtotal}}</strong></p>
+        <p style="margin: 5px 0;">Shipping: ${{shipping}}</p>
+        <p style="margin: 5px 0;">Tax: ${{tax}}</p>
+        <h3 style="margin: 10px 0; color: #495057;">Refund Amount: ${{totalAmount}}</h3>
+      </div>
+      
+      <div class="address-section">
+        <h3 style="margin-top: 0; color: #495057;">Original Shipping Address</h3>
+        <p style="margin: 5px 0;"><strong>{{address.name}}</strong></p>
+        <p style="margin: 5px 0;">{{address.street}}</p>
+        <p style="margin: 5px 0;">{{address.city}}, {{address.state}} {{address.zipCode}}</p>
+        <p style="margin: 5px 0;">{{address.country}}</p>
+      </div>
+      
+      <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
+        <h4 style="margin: 0 0 10px 0; color: #004085;">We're Sorry to See You Go</h4>
+        <p style="margin: 5px 0;">If this cancellation was a mistake or you'd like to reorder, visit our store anytime.</p>
+        <p style="margin: 5px 0;">We're always here to help improve your shopping experience.</p>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>If you have any questions about your cancellation, contact our support team at <a href="mailto:support@quickcart.com" style="color: #667eea;">support@quickcart.com</a></p>
+      <p>&copy; 2025 QuickCart. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Confirmed - QuickCart</title>
+  <style>
+    /* Keep all your existing styles */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="success-icon">✅</div>
+      <h1>Payment Confirmed!</h1>
+      <p>Your payment was processed successfully</p>
+    </div>
+    
+    <div class="content">
+      <div class="payment-info">
+        <h2 style="margin-top: 0; color: #495057;">Payment Details</h2>
+        <p><strong>Payment ID:</strong> {{paymentId}}</p>
+        <p><strong>Order ID:</strong> {{orderId}}</p>
+        <p><strong>Amount Paid:</strong> <span style="font-size: 20px; font-weight: bold; color: #28a745;">${{amount}}</span></p>
+        <p><strong>Payment Method:</strong> {{paymentMethod}}</p>
+        <p><strong>Status:</strong> <span style="color: #28a745; font-weight: bold;">{{status}}</span></p>
+        <p><strong>Date:</strong> {{paymentDate}}</p>
+        
+        <div class="order-summary">
+          <h4 style="margin: 0 0 10px 0; color: #495057;">Order Summary</h4>
+          {{#each products}}
+          <p style="margin: 5px 0; display: flex; justify-content: space-between;">
+            <span>{{this.title}} x{{this.quantity}}</span>
+            <span>${{this.total}}</span>
+          </p>
+          {{/each}}
+          <p style="margin: 5px 0; display: flex; justify-content: space-between;">
+            <span>Shipping</span>
+            <span>${{shipping}}</span>
+          </p>
+          <p style="margin: 5px 0; display: flex; justify-content: space-between;">
+            <span>Tax</span>
+            <span>${{tax}}</span>
+          </p>
+          <hr style="margin: 10px 0;">
+          <p style="margin: 5px 0; display: flex; justify-content: space-between; font-weight: bold;">
+            <span>Total</span>
+            <span>${{amount}}</span>
+          </p>
+        </div>
+        
+        {{#if receiptUrl}}
+        <a href="{{receiptUrl}}" class="receipt-link" target="_blank">📄 View Receipt</a>
+        {{/if}}
+      </div>
+      
+      <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; border-left: 4px solid #007bff;">
+        <h4 style="margin: 0 0 10px 0; color: #004085;">What's Next?</h4>
+        <p style="margin: 5px 0;">📦 Your order is now being processed</p>
+        <p style="margin: 5px 0;">📧 You'll receive shipping confirmation soon</p>
+        <p style="margin: 5px 0;">⏰ Expected shipping: 1-2 business days</p>
+      </div>
+      
+      <div style="margin-top: 20px; text-align: center;">
+        <p style="color: #6c757d;">Need help with your order?</p>
+        <p>
+          <a href="mailto:support@quickcart.com" style="color: #007bff; text-decoration: none; margin: 0 10px;">Contact Support</a> • 
+          <a href="{{orderUrl}}" style="color: #007bff; text-decoration: none; margin: 0 10px;">View Order Status</a> • 
+          <a href="{{trackingUrl}}" style="color: #007bff; text-decoration: none; margin: 0 10px;">Track Package</a>
+        </p>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Thank you for shopping with QuickCart!</p>
+      <p>&copy; 2025 QuickCart. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

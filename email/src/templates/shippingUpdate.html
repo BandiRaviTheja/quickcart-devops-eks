@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping Update - QuickCart</title>
+  <style>
+    /* Keep all your existing styles */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📦 Shipping Update</h1>
+      <p>Your order is on the move!</p>
+    </div>
+    
+    <div class="content">
+      <div class="shipping-info">
+        <h2 style="margin-top: 0; color: #495057;">Order #{{orderId}}</h2>
+        <p><strong>Current Status:</strong> <span style="color: #fd7e14; font-weight: bold; text-transform: capitalize;">{{status}}</span></p>
+        <p><strong>Last Updated:</strong> {{updateDate}}</p>
+        <p><strong>Estimated Delivery:</strong> {{estimatedDelivery}}</p>
+      </div>
+
+      <div class="status-timeline">
+        <h3 style="color: #495057;">Shipping Progress</h3>
+        
+        <div class="timeline-item {{#if (gte statusIndex 1)}}completed{{/if}}">
+          <div class="timeline-icon">{{#if (gte statusIndex 1)}}✓{{/if}}</div>
+          <div>
+            <strong>Order Confirmed</strong>
+            <p style="margin: 2px 0; color: #6c757d;">We've received your order</p>
+            <small style="color: #6c757d;">{{orderDate}}</small>
+          </div>
+        </div>
+
+        <div class="timeline-item {{#if (gte statusIndex 2)}}completed{{else if (eq statusIndex 1)}}active{{/if}}">
+          <div class="timeline-icon">{{#if (gte statusIndex 2)}}✓{{else if (eq statusIndex 1)}}!{{/if}}</div>
+          <div>
+            <strong>Processing</strong>
+            <p style="margin: 2px 0; color: #6c757d;">Preparing your items</p>
+            <small style="color: #6c757d;">{{processingDate}}</small>
+          </div>
+        </div>
+
+        <div class="timeline-item {{#if (gte statusIndex 3)}}completed{{else if (eq statusIndex 2)}}active{{/if}}">
+          <div class="timeline-icon">{{#if (gte statusIndex 3)}}✓{{else if (eq statusIndex 2)}}!{{/if}}</div>
+          <div>
+            <strong>Shipped</strong>
+            <p style="margin: 2px 0; color: #6c757d;">Your order is on the way</p>
+            {{#if shippedDate}}<small style="color: #6c757d;">{{shippedDate}}</small>{{/if}}
+          </div>
+        </div>
+
+        <div class="timeline-item {{#if (gte statusIndex 4)}}completed{{else if (eq statusIndex 3)}}active{{/if}}">
+          <div class="timeline-icon">{{#if (gte statusIndex 4)}}✓{{else if (eq statusIndex 3)}}!{{/if}}</div>
+          <div>
+            <strong>Out for Delivery</strong>
+            <p style="margin: 2px 0; color: #6c757d;">Package will arrive today</p>
+            {{#if outForDeliveryDate}}<small style="color: #6c757d;">{{outForDeliveryDate}}</small>{{/if}}
+          </div>
+        </div>
+
+        <div class="timeline-item {{#if (gte statusIndex 5)}}completed{{/if}}">
+          <div class="timeline-icon">{{#if (gte statusIndex 5)}}✓{{/if}}</div>
+          <div>
+            <strong>Delivered</strong>
+            <p style="margin: 2px 0; color: #6c757d;">Package delivered to you</p>
+            {{#if deliveredDate}}<small style="color: #6c757d;">{{deliveredDate}}</small>{{/if}}
+          </div>
+        </div>
+      </div>
+
+      {{#if trackingNumber}}
+      <div class="tracking-section">
+        <h4 style="margin: 0 0 10px 0; color: #856404;">Track Your Package</h4>
+        <p style="margin: 5px 0;"><strong>Tracking Number:</strong> {{trackingNumber}}</p>
+        <p style="margin: 5px 0;"><strong>Carrier:</strong> {{carrier}}</p>
+        <a href="{{trackingUrl}}" class="tracking-button" target="_blank">📱 Track Package</a>
+      </div>
+      {{/if}}
+
+      <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin: 20px 0;">
+        <h4 style="margin: 0 0 10px 0; color: #004085;">Delivery Information</h4>
+        <p style="margin: 5px 0;">📍 <strong>Delivery Address:</strong> {{address}}</p>
+        <p style="margin: 5px 0;">📞 <strong>Contact:</strong> {{contactPhone}}</p>
+        <p style="margin: 5px 0;">💡 <strong>Note:</strong> Signature may be required for delivery</p>
+      </div>
+
+      <div style="text-align: center; margin: 25px 0;">
+        <h4 style="color: #495057;">Order Items</h4>
+        {{#each products}}
+        <div style="display: inline-block; text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px; margin: 5px;">
+          <p style="margin: 5px 0;">📦 <strong>{{this.title}}</strong></p>
+          <p style="margin: 5px 0; color: #6c757d;">Quantity: {{this.quantity}} | ${{this.price}}</p>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p>Thank you for choosing QuickCart!</p>
+      <p>Questions about your delivery? <a href="mailto:support@quickcart.com" style="color: #fd7e14;">Contact Support</a></p>
+      <p>&copy; 2025 QuickCart. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>

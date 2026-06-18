@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION      = 'ap-south-1'
         PROJECT_NAME    = 'devops-project'
-        AWS_CREDENTIALS = credentials('aws-cred')
+        AWS_CREDENTIALS = credentials('aws-creds-id')
         ECR_ACCOUNT     = '775826428475'
         ECR_REGION      = "${env.AWS_REGION}"
         KUBE_NAMESPACE  = 'backend'
@@ -16,7 +16,7 @@ pipeline {
         stage('Terraform Init & Apply') {
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
-                    credentialsId: 'aws-cred']]) {
+                    credentialsId: 'aws-creds-id']]) {
                     dir('terraform') {
                         sh """
                         terraform init
